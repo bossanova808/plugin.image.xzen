@@ -6,7 +6,6 @@
   provider-name="bossanova808 (bossanova808@gmail.com)">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
-    <import addon="script.module.b808common" version="0.0.4"/>
   </requires>
   <extension point="xbmc.python.pluginsource" library="default.py">
     <provides>image</provides>
