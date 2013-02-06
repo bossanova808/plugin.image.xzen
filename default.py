@@ -113,7 +113,7 @@ USERNAME=ADDON.getSetting('username')
 PASSWORD=ADDON.getSetting('password')
 GALLERYPASS=ADDON.getSetting('passwordOriginals')
 
-params=get_params()
+params=getParams()
 log("Parameters parsed: " + str(params))
 
 #try and get data from the paramters
