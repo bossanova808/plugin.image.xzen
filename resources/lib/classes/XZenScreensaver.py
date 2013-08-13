@@ -18,6 +18,10 @@ class XZenScreensaver(xbmcgui.WindowXMLDialog):
             log("ExitMonitor: sending exit_callback")
             self.exit_callback()
 
+    #init and lodge the connection to ZenFolio
+    def __init__(self, ZenXBMC):
+        self.ZenXBMC = ZenXBMC;       
+
     def onInit(self):
         log("Screensaver: onInit")
         self.monitor = self.ExitMonitor(self.exit)
