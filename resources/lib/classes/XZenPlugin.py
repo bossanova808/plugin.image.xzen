@@ -80,10 +80,11 @@ class XZenPlugin():
 
     # Call the write function depending on the node balue   
     def action_mode(self):
+        
         try:
             if self.mode==None or self.mode==MENU_ROOT:
                 log( "Display XZen Root Menu" )
-                self.BuildMenuRoot()
+                self.zen.BuildMenuRoot()
 
             elif self.mode==MENU_USERGALLERIES:
                 log( "Display XZen User Gallery" )
@@ -136,19 +137,4 @@ class XZenPlugin():
             print_exc()
 
 
-    def BuildMenuRootItem(self, mode, label):
-        url = buildPluginURL({"mode":mode})
-        item=xbmcgui.ListItem(label,url,'','',)
-        xbmcplugin.addDirectoryItem(THIS_PLUGIN,url,item,True)
-
-    def BuildMenuRoot(self):
-
-        if self.zen.AUTHENTICATED:
-            self.BuildMenuRootItem(MENU_USERGALLERIES        ,LANGUAGE(30008)) #"User Galleries"
-        self.BuildMenuRootItem(CATEGORIES                    ,LANGUAGE(30009)) #"Categories"
-        self.BuildMenuRootItem(RECENTPHOTOS                  ,LANGUAGE(30010)) #"Recent Photos"
-        self.BuildMenuRootItem(RECENTGALLERIES               ,LANGUAGE(30011)) #"Recent Galleries"
-        self.BuildMenuRootItem(RECENTCOLLECTIONS             ,LANGUAGE(30012)) #"Recent Collections"
-        self.BuildMenuRootItem(POPPHOTOS                     ,LANGUAGE(30013)) #"Popular Photos"
-        self.BuildMenuRootItem(POPGALLERIES                  ,LANGUAGE(30014)) #"Popular Galleries"
-        self.BuildMenuRootItem(POPCOLLECTIONS                ,LANGUAGE(30015)) #"Popular Collections"
+ 

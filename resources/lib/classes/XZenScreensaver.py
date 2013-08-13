@@ -6,7 +6,6 @@ import xbmcaddon
 
 from b808common import *
 
-
 class XZenScreensaver(xbmcgui.WindowXMLDialog):
 
     class ExitMonitor(xbmc.Monitor):
@@ -17,10 +16,6 @@ class XZenScreensaver(xbmcgui.WindowXMLDialog):
         def onScreensaverDeactivated(self):
             log("ExitMonitor: sending exit_callback")
             self.exit_callback()
-
-    #init and lodge the connection to ZenFolio
-    def __init__(self, ZenXBMC):
-        self.ZenXBMC = ZenXBMC;       
 
     def onInit(self):
         log("Screensaver: onInit")

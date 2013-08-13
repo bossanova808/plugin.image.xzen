@@ -30,10 +30,6 @@ class XZenBridge():
     ################################################################################
     # Basic Util Functions
 
-    def frontPadTo9Chars(self, shortStr):
-        while len(shortStr)<9:
-            shortStr = "0" + shortStr
-        return shortStr
 
 
     ################################################################################
@@ -69,7 +65,7 @@ class XZenBridge():
 
         try:
             titlePhoto = self.zen.LoadPhoto(group.TitlePhoto,'Level1')
-            urlTitlePhoto = titlePhoto.getUrl(ZEN_URL_QUALITY['Large thumbnail'],auth=AUTH)
+            urlTitlePhoto = titlePhoto.getUrl(ZEN_URL_QUALITY['Large thumbnail'],auth=self.AUTH)
 
             if group.Title is None:
                 title = LANGUAGE(30004)
@@ -89,7 +85,7 @@ class XZenBridge():
 
         try:
             titlePhoto = self.zen.LoadPhoto(photoSet.TitlePhoto,'Level1')
-            urlTitlePhoto = titlePhoto.getUrl(ZEN_URL_QUALITY['Large thumbnail'],auth=AUTH)
+            urlTitlePhoto = titlePhoto.getUrl(ZEN_URL_QUALITY['Large thumbnail'],auth=self.AUTH)
 
             if photoSet.Title is None:
                 title="(" + LANGUAGE(30006) + ")"
@@ -111,11 +107,11 @@ class XZenBridge():
             #get the highest quality url available
             for key, value in ZEN_DOWNLOAD_QUALITY.iteritems():
                 if key not in photo.AccessDescriptor['AccessMask']:
-                    url = photo.getUrl(value, keyring=downloadKey, auth=AUTH)
+                    url = photo.getUrl(value, keyring=downloadKey, auth=self.AUTH)
                     #log("Added url quality: " + key)
                     break;
 
-            urlThumb = photo.getUrl(ZEN_URL_QUALITY['Large thumbnail'],keyring=downloadKey, auth=AUTH)
+            urlThumb = photo.getUrl(ZEN_URL_QUALITY['Large thumbnail'],keyring=downloadKey, auth=self.AUTH)
 
             if photo.Title is None:
                 title= LANGUAGE(30004)
@@ -136,7 +132,7 @@ class XZenBridge():
         if isinstance(item, PhotoSet):
             #is this a password protected gallery?
             if item.AccessDescriptor['AccessType'] == 'Password':
-                downloadKey = zen.GetDownloadOriginalKey(item.Photos,GALLERYPASS)
+                downloadKey = self.zen.GetDownloadOriginalKey(item.Photos,self.GALLERYPASS)
                 log("Download Key is: " + downloadKey)
                 return downloadKey
             else:
@@ -149,31 +145,31 @@ class XZenBridge():
     def AddGallery(self, galleryid):
 
         photoset = self.zen.LoadPhotoSet(galleryid, 'Level1',includePhotos=True)
-        downloadKey = getKey(photoset)
+        downloadKey = self.getKey(photoset)
         for photo in photoset.Photos:
-            AddPhotoThumb(photo,len(photoset.Photos),downloadKey)
+            self.AddPhotoThumb(photo,len(photoset.Photos),downloadKey)
 
     #Given a category ID, add all the thumbs
     def AddCategory(self, categoryid,choice,offset=0):
 
 
-        AddNextPageLink(DISPLAY_CATEGORY,offset+LIMIT,categoryid,choice)
+        self.AddNextPageLink(DISPLAY_CATEGORY,offset+LIMIT,categoryid,choice)
 
         if choice=="Photos":
             searchResults = self.zen.SearchPhotoByCategory(0,'Popularity',categoryid,offset,LIMIT)
             log(str(searchResults))
             for photo in searchResults['Photos']:
-                AddPhotoThumb(photo,len(searchResults['Photos']))
+                self.AddPhotoThumb(photo,len(searchResults['Photos']))
         elif choice=="Galleries":
             searchResults = self.zen.SearchSetByCategory(0,'Gallery','Popularity',categoryid,offset,LIMIT)
             log(str(searchResults))
             for photoset in searchResults['PhotoSets']:
-                AddPhotoSetThumb(photoset,len(searchResults['PhotoSets']))
+                self.AddPhotoSetThumb(photoset,len(searchResults['PhotoSets']))
         elif choice=="Collections":
             searchResults = self.zen.SearchSetByCategory(0,'Collection','Popularity',categoryid,offset,LIMIT)
             log(str(searchResults))
             for photoset in searchResults['PhotoSets']:
-                AddPhotoSetThumb(photoset,len(searchResults['PhotoSets']))
+                self.AddPhotoSetThumb(photoset,len(searchResults['PhotoSets']))
         else:
             false
 
@@ -212,42 +208,42 @@ class XZenBridge():
             log("Access is: " + str(element.AccessDescriptor))
             if isinstance(element,PhotoSet):
                 log("Add PhotoSet Thumb: " + str(element.Id))
-                AddPhotoSetThumb(element,len(h.Elements))
+                self.AddPhotoSetThumb(element,len(h.Elements))
             elif isinstance(element,Group):
                 log("Add Group Thumb: " + str(element.Id))
-                AddGroupThumb(element)
+                self.AddGroupThumb(element)
             elif isinstance(element,Photo):
                 log("Add Photo Thumb: " + str(element.Id))
-                AddPhotoThumb(element)
+                self.AddPhotoThumb(element)
             else:
                 log("Did not add, not sure what this is: " + element.__name__)
 
 
     def BuildMenuPopSets(self, type="Gallery",offset=0):
 
-        if type=="Gallery": AddNextPageLink(POPGALLERIES,offset+LIMIT)
-        else: AddNextPageLink(POPCOLLECTIONS,offset+LIMIT)
+        if type=="Gallery": self.AddNextPageLink(POPGALLERIES,offset+LIMIT)
+        else: self.AddNextPageLink(POPCOLLECTIONS,offset+LIMIT)
         photosets = self.zen.GetPopularSets(type,offset,LIMIT)
         for photoset in photosets:
-            AddPhotoSetThumb(photoset,len(photosets))
+            self.AddPhotoSetThumb(photoset,len(photosets))
 
     def ShowPopularPhotos(self, offset=0):
 
         #first add a next page link for quick browsing
-        AddNextPageLink(POPPHOTOS,offset+LIMIT)
+        self.AddNextPageLink(POPPHOTOS,offset+LIMIT)
 
         #now add the photos of this page
         photos = self.zen.GetPopularPhotos(offset,LIMIT)
         for photo in photos:
-            AddPhotoThumb(photo,len(photos))
+            self.AddPhotoThumb(photo,len(photos))
 
     def BuildMenuRecentSets(self, type="Gallery",offset=0):
 
-        if type=="Gallery": AddNextPageLink(RECENTGALLERIES,offset+LIMIT)
-        else: AddNextPageLink(RECENTCOLLECTIONS,offset+LIMIT)
+        if type=="Gallery": self.AddNextPageLink(RECENTGALLERIES,offset+LIMIT)
+        else: self.AddNextPageLink(RECENTCOLLECTIONS,offset+LIMIT)
         photosets = self.zen.GetRecentSets(type,offset,LIMIT)
         for photoset in photosets:
-            AddPhotoSetThumb(photoset,len(photosets))
+            self.AddPhotoSetThumb(photoset,len(photosets))
 
 
     #build a list of categories or subcats or subsubcats
@@ -292,7 +288,7 @@ class XZenBridge():
             log("Parent Code incoming is: " + parentCode)
 
         for category in categoriesList:
-            BuildMenuCategoryItem(category,"")
+            self.BuildMenuCategoryItem(category,"")
 
     ##        #get the code as a string and pad it to the orignal 12 characters
     ##        strCode = str(category['Code'])
@@ -325,9 +321,26 @@ class XZenBridge():
     def ShowRecentPhotos(self, offset=0):
 
         #first add a next page link for quick browsing
-        AddNextPageLink(RECENTPHOTOS,offset+LIMIT)
+        self.AddNextPageLink(RECENTPHOTOS,offset+LIMIT)
 
         #now add the photos of this page
         photos = self.zen.GetRecentPhotos(offset,LIMIT)
         for photo in photos:
-            AddPhotoThumb(photo,len(photos))
+            self.AddPhotoThumb(photo,len(photos))
+
+    def BuildMenuRootItem(self, mode, label):
+        url = buildPluginURL({"mode":mode})
+        item=xbmcgui.ListItem(label,url,'','',)
+        xbmcplugin.addDirectoryItem(THIS_PLUGIN,url,item,True)
+
+    def BuildMenuRoot(self):
+
+        if self.AUTHENTICATED:
+            self.BuildMenuRootItem(MENU_USERGALLERIES        ,LANGUAGE(30008)) #"User Galleries"
+        self.BuildMenuRootItem(CATEGORIES                    ,LANGUAGE(30009)) #"Categories"
+        self.BuildMenuRootItem(RECENTPHOTOS                  ,LANGUAGE(30010)) #"Recent Photos"
+        self.BuildMenuRootItem(RECENTGALLERIES               ,LANGUAGE(30011)) #"Recent Galleries"
+        self.BuildMenuRootItem(RECENTCOLLECTIONS             ,LANGUAGE(30012)) #"Recent Collections"
+        self.BuildMenuRootItem(POPPHOTOS                     ,LANGUAGE(30013)) #"Popular Photos"
+        self.BuildMenuRootItem(POPGALLERIES                  ,LANGUAGE(30014)) #"Popular Galleries"
+        self.BuildMenuRootItem(POPCOLLECTIONS                ,LANGUAGE(30015)) #"Popular Collections"

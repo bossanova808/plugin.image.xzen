@@ -52,20 +52,20 @@ if __name__ == '__main__':
 
     # Calles as a screensaver?  This will be blank
     if SCREENSAVER:
-        log( "...therefore running as screensaver" )
-        screensaver_gui = XZenScreensaver('XZenScreensaver.xml' , CWD, 'Default', ZenXBMC)
+        log( "Running as screensaver" )
+        screensaver_gui = XZenScreensaver('XZenScreensaver.xml' , CWD, 'Default')
         screensaver_gui.doModal()
         #when we drop back here we're out of the screensaver...
         log ("Xzen Screensaver Exited")
         del screensaver_gui
-        sys.modules.clear()
     # we're running as an image plugin...
     else:
         log( "Running as a Pictures addon" )
         plug = XZenPlugin()
  
-        #and power this puppy down....
-        footprints(startup=False)
+
+    #and power this puppy down....
+    footprints(startup=False)
 
 
 
