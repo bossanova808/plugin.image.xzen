@@ -15,6 +15,7 @@ class XZenPlugin():
         self.url = None
         self.galleryid=None
         self.group=None
+        self.set=None
         self.category=None
         self.categoryid=None
         self.choice=None
@@ -37,6 +38,14 @@ class XZenPlugin():
             pass
         try:
             self.group=int(params["group"])
+        except:
+            pass
+        try:
+            self.set=int(params["set"])
+        except:
+            pass
+        try:
+            self.root=params["root"]
         except:
             pass
         try:
@@ -129,6 +138,18 @@ class XZenPlugin():
             elif self.mode==DISPLAY_GALLERY:
                 log( "Display XZen Gallery id: " + str (self.galleryid) )
                 self.zen.AddGallery(self.galleryid)
+ 
+            elif self.mode==SET_SS_ROOT_ROOT:
+                log( "Set Screensaver Root to Root Menu Item: " + str (self.root) )
+                
+
+            elif self.mode==SET_SS_ROOT_GROUP:
+                log( "Set Screensaver Root to Group: " + str (self.group) )
+                
+          
+            elif self.mode==SET_SS_ROOT_SET:
+                log( "Set Screensaver Root to Set: " + str (self.set) )
+                
 
             else:
                 notify(LANGUAGE(30017))
