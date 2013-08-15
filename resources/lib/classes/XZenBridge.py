@@ -75,9 +75,8 @@ class XZenBridge():
             url = buildPluginURL({'mode':MENU_USERGALLERIES,'group':str(group.Id)})
             item=xbmcgui.ListItem(title,url,urlTitlePhoto,urlTitlePhoto)
 
-            commands = []
-            commands.append(('Set group as XZen Screensaver Root', 'XBMC.RunPlugin(plugin://image/plugin.image.xzen,mode=SET_SS_ROOT_GROUP,group='+str(group.Id),))
-            item.addContextMenuItems(commands)
+            cmi = "XBMC.RunPlugin(" + buildPluginURL({'mode':SET_SS_ROOT_GROUP,'group':str(group.Id)}) + ")"
+            item.addContextMenuItems([('Set as XZenScreensaver Root', cmi)])
 
             xbmcplugin.addDirectoryItem(THIS_PLUGIN,url,item,True,numberOfItems)
 
@@ -100,9 +99,8 @@ class XZenBridge():
             url = buildPluginURL({"mode":DISPLAY_GALLERY, "galleryid":str(photoSet.Id)})
             item=xbmcgui.ListItem(title,url,urlTitlePhoto,urlTitlePhoto)
             
-            commands = []
-            commands.append(('Set this set as XZen Screensaver Root', 'XBMC.RunPlugin(plugin://image/plugin.image.xzen,mode=SET_SS_ROOT_SET,group='+str(photoSet.Id),))
-            item.addContextMenuItems(commands)
+            cmi = "XBMC.RunPlugin(" + buildPluginURL({'mode':SET_SS_ROOT_SET,'set':mode}) + ")"
+            item.addContextMenuItems([('Set as XZenScreensaver Root', cmi)])
             
             xbmcplugin.addDirectoryItem(THIS_PLUGIN,url,item,True,numberOfItems)
 
@@ -341,9 +339,8 @@ class XZenBridge():
     def BuildMenuRootItem(self, mode, label):
         url = buildPluginURL({"mode":mode})
         item=xbmcgui.ListItem(label,url,'','',)
-        commands = []
-        commands.append(('Set item as XZen Screensaver Root', 'XBMC.RunAddon(plugin.image.xzen,mode=SET_SS_ROOT_ROOT,root='+mode,))
-        item.addContextMenuItems(commands)
+        cmi = "XBMC.RunPlugin(" + buildPluginURL({'mode':SET_SS_ROOT_ROOT,'root':mode}) + ")"
+        item.addContextMenuItems([('Set as XZenScreensaver Root', cmi)])
         xbmcplugin.addDirectoryItem(THIS_PLUGIN,url,item,True)
 
     def BuildMenuRoot(self):

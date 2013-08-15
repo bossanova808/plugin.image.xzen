@@ -20,6 +20,9 @@ class XZenScreensaver(xbmcgui.WindowXMLDialog):
     def onInit(self):
         log("Screensaver: onInit")
         self.monitor = self.ExitMonitor(self.exit)
+        self.root_type=ADDON.getSetting('ss_root_type')
+        self.root_data=ADDON.getSetting('ss_root_data')
+        log("Root type is: "+ str(self.root_type) +", root data is: " + self.root_data)
 
     def exit(self):
         log("Screensaver: Exit requested")

@@ -91,6 +91,11 @@ class XZenPlugin():
     def action_mode(self):
         
         try:
+            log("Parsed Mode is : " + str(self.mode))
+        except:
+            pass
+
+        try:
             if self.mode==None or self.mode==MENU_ROOT:
                 log( "Display XZen Root Menu" )
                 self.zen.BuildMenuRoot()
@@ -141,15 +146,24 @@ class XZenPlugin():
  
             elif self.mode==SET_SS_ROOT_ROOT:
                 log( "Set Screensaver Root to Root Menu Item: " + str (self.root) )
-                
+                ADDON.setSetting('ss_root_data', self.root)
+                ADDON.setSetting('ss_root_type', "menu_item")
+                dialog = xbmcgui.Dialog()
+                ok = dialog.ok('XBMC', 'XZenSceensaver root item set')
 
             elif self.mode==SET_SS_ROOT_GROUP:
                 log( "Set Screensaver Root to Group: " + str (self.group) )
-                
-          
+                ADDON.setSetting('ss_root_data', str(self.group))              
+                ADDON.setSetting('ss_root_type', "group")
+                dialog = xbmcgui.Dialog()
+                ok = dialog.ok('XBMC', 'XZenSceensaver root item set')
+         
             elif self.mode==SET_SS_ROOT_SET:
                 log( "Set Screensaver Root to Set: " + str (self.set) )
-                
+                ADDON.setSetting('ss_root_data', str(self.set) )
+                ADDON.setSetting('ss_root_type', "set")
+                dialog = xbmcgui.Dialog()
+                ok = dialog.ok('XBMC', 'XZenSceensaver root item set')
 
             else:
                 notify(LANGUAGE(30017))
