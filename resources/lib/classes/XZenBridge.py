@@ -99,7 +99,7 @@ class XZenBridge():
             url = buildPluginURL({"mode":DISPLAY_GALLERY, "galleryid":str(photoSet.Id)})
             item=xbmcgui.ListItem(title,url,urlTitlePhoto,urlTitlePhoto)
             
-            cmi = "XBMC.RunPlugin(" + buildPluginURL({'mode':SET_SS_ROOT_SET,'set':mode}) + ")"
+            cmi = "XBMC.RunPlugin(" + buildPluginURL({'mode':SET_SS_ROOT_SET,'set':str(photoSet.Id)}) + ")"
             item.addContextMenuItems([('Set as XZenScreensaver Root', cmi)])
             
             xbmcplugin.addDirectoryItem(THIS_PLUGIN,url,item,True,numberOfItems)
