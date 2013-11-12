@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="plugin.image.xzen"
-  version="0.0.8"
+  version="0.0.9"
   name="XZen"
-  provider-name="bossanova808 (bossanova808@gmail.com)">
+  provider-name="bossanova808">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
   </requires>
-  <!-- run as a Pictures addon... -->
   <extension point="xbmc.python.pluginsource" library="default.py">
     <provides>image</provides>
   </extension>
-  <!-- ...or can be run as a screensaver too -->
-  <extension point="xbmc.ui.screensaver" library="default.py" >
-  </extension>
-  <extension point="xbmc.addon.metadata">
+ <extension point="xbmc.addon.metadata">
     <platform>all</platform>
     <language></language>
     <summary lang="en">Zenfolio Browser for XBMC</summary>
