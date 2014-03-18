@@ -19,6 +19,6 @@
     <forum>http://forum.xbmc.org/showthread.php?tid=153178</forum>
     <website>http://wiki.xbmc.org/index.php?title=Add-on:XZen</website>
     <email></email>
-    <source></source>
+    <source>https://github.com/bossanova808/plugin.image.xzen</source>
   </extension>
 </addon>
