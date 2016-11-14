@@ -3,6 +3,7 @@
   id="plugin.image.xzen"
   version="0.1.0"
   name="XZen"
+  provider-name="bossanova808">
   <requires>
     <import addon="xbmc.python" version="2.24.0"/>
   </requires>
