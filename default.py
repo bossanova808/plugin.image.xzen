@@ -20,6 +20,7 @@ import xbmcplugin
 import xbmcgui
 import xbmcaddon
 import os
+from traceback import print_exc
 
 # Minimal code to import bossanova808 common code
 ADDON           = xbmcaddon.Addon()
@@ -199,44 +200,55 @@ def ConnectZen(mode):
 def AddGroupThumb(group, numberOfItems=0):
 
     global zen
+    global AUTH
 
-    try:
-        titlePhoto = zen.LoadPhoto(group.TitlePhoto,'Level1')
-        urlTitlePhoto = titlePhoto.getUrl(ZEN_URL_QUALITY['Large thumbnail'],auth=AUTH)
+    #Groups may not have thumbnail...
+    if group.TitlePhoto is None:
+        urlTitlePhoto = ""
+    else:
+        try:
+            titlePhoto = zen.LoadPhoto(group.TitlePhoto,'Level1')
+            urlTitlePhoto = titlePhoto.getUrl(ZEN_URL_QUALITY['Large thumbnail'],auth=AUTH)
 
-        if group.Title is None:
-            title = LANGUAGE(30004)
-        else:
-            title = LANGUAGE(30005) + ": " + unquoteUni(group.Title)
+        except Exception as inst:
+            log("AddGroupThumb - Exception!", inst)
 
-        url = buildPluginURL({'mode':MENU_USERGALLERIES,'group':str(group.Id)})
-        item=xbmcgui.ListItem(title,url,urlTitlePhoto,urlTitlePhoto)
-        xbmcplugin.addDirectoryItem(THIS_PLUGIN,url,item,True,numberOfItems)
+    if group.Title is None:
+        title = LANGUAGE(30004)
+    else:
+        title = LANGUAGE(30005) + ": " + unquoteUni(group.Title)
 
-    except Exception as inst:
-        log("AddPhotoSetThumb - Exception!", inst)
+    url = buildPluginURL({'mode':MENU_USERGALLERIES,'group':str(group.Id)})
+    item=xbmcgui.ListItem(title,url,urlTitlePhoto,urlTitlePhoto)
+    xbmcplugin.addDirectoryItem(THIS_PLUGIN,url,item,True,numberOfItems)
 
 
 #add thumb that links to a set of photos
 def AddPhotoSetThumb(photoSet, numberOfItems=0):
 
+    global zen
     global AUTH
 
-    try:
-        titlePhoto = zen.LoadPhoto(photoSet.TitlePhoto,'Level1')
-        urlTitlePhoto = titlePhoto.getUrl(ZEN_URL_QUALITY['Large thumbnail'],auth=AUTH)
+    #May not have thumbnail...
+    if photoSet.TitlePhoto is None:
+        urlTitlePhoto = ""
+    else:
+        try:
+            titlePhoto = zen.LoadPhoto(photoSet.TitlePhoto,'Level1')
+            urlTitlePhoto = titlePhoto.getUrl(ZEN_URL_QUALITY['Large thumbnail'],auth=AUTH)
 
-        if photoSet.Title is None:
-            title="(" + LANGUAGE(30006) + ")"
-        else:
-            title = LANGUAGE(30007) + ": " + unquoteUni(photoSet.Title)
+        except Exception as inst:
+            log("AddGroupThumb - Exception!", inst)
 
-        url = buildPluginURL({"mode":DISPLAY_GALLERY, "galleryid":str(photoSet.Id)})
-        item=xbmcgui.ListItem(title,url,urlTitlePhoto,urlTitlePhoto)
-        xbmcplugin.addDirectoryItem(THIS_PLUGIN,url,item,True,numberOfItems)
+    if photoSet.Title is None:
+        title="(" + LANGUAGE(30006) + ")"
+    else:
+        title = LANGUAGE(30007) + ": " + unquoteUni(photoSet.Title)
 
-    except Exception as inst:
-        log("AddPhotoSetThumb - Exception!", inst)
+    url = buildPluginURL({"mode":DISPLAY_GALLERY, "galleryid":str(photoSet.Id)})
+    item=xbmcgui.ListItem(title,url,urlTitlePhoto,urlTitlePhoto)
+    xbmcplugin.addDirectoryItem(THIS_PLUGIN,url,item,True,numberOfItems)
+
 
 #Add thumb that links to an individual photo
 
@@ -520,7 +532,7 @@ def ShowRecentPhotos(offset=0):
 if __name__ == '__main__':
 
 
-    # Calles as a screensaver?  This will be blank
+    # Called as a screensaver?  This will be blank
     if SCREENSAVER:
         log( "...therefore running as screensaver" )
         screensaver_gui = XZenScreensaver('XZenScreensaver.xml' , CWD, 'Default')

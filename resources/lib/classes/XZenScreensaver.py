@@ -6,7 +6,6 @@ import xbmcaddon
 
 from b808common import *
 
-
 class XZenScreensaver(xbmcgui.WindowXMLDialog):
 
     class ExitMonitor(xbmc.Monitor):
