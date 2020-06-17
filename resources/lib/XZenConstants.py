@@ -23,16 +23,16 @@ SET_SS_ROOT_SET = "SET_SS_ROOT_SET"
 SET_SS_ROOT_GROUP = "SET_SS_ROOT_GROUP"
 
 #these modes use the thumbnail view (for playable items)
-galleryModes = [\
-                MENU_USERGALLERIES,\
-                DISPLAY_GALLERY,\
-                POPPHOTOS,\
-                POPGALLERIES,\
-                POPCOLLECTIONS,\
-                RECENTPHOTOS,\
-                RECENTGALLERIES,\
-                RECENTCOLLECTIONS,\
-                DISPLAY_CATEGORY \
+galleryModes = [
+                MENU_USERGALLERIES,
+                DISPLAY_GALLERY,
+                POPPHOTOS,
+                POPGALLERIES,
+                POPCOLLECTIONS,
+                RECENTPHOTOS,
+                RECENTGALLERIES,
+                RECENTCOLLECTIONS,
+                DISPLAY_CATEGORY
               ]
 
 #Zenfolio Quality Levels for Images

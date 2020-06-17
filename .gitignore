@@ -1,4 +1,8 @@
-/resources/lib/b808common/*.pyo
-/resources/lib/zenapi/*.pyo
-
+*.pyc
 *.pyo
+.DS*
+.pylint_rc
+/.idea
+/.project
+/.pydevproject
+/.settings

@@ -1,0 +1,127 @@
+# Kodi Media Center language file
+# Addon Name: XZen
+# Addon id: plugin.image.xzen
+# Addon Provider: bossanova808
+msgid ""
+msgstr ""
+"Project-Id-Version: Kodi Addons\n"
+"Report-Msgid-Bugs-To: alanwww1@kodi.org\n"
+"POT-Creation-Date: 2011-12-14 00:00+1000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Kodi Translation Team\n"
+"Language-Team: English (http://www.transifex.com/projects/p/xbmc-addons/language/en/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+<!-- Main -->
+
+msgctxt "#30001"
+msgid "Zenfolio"
+msgstr ""
+
+msgctxt "#30002"
+msgid "Zenfolio Authentication not completed"
+msgstr 
+
+msgctxt "#30003"
+msgid "(Can still browse public galleries etc.)"
+msgstr 
+
+msgctxt "#30004"
+msgid "Untitled"
+msgstr
+
+msgctxt "#30005"
+msgid "Group"
+msgstr
+
+msgctxt "#30006"
+msgid "Untitled Folder"
+msgstr
+
+msgctxt "#30007"
+msgid "Set"
+msgstr
+
+msgctxt "#30008"
+msgid "User Galleries"
+msgstr
+
+msgctxt "#30009"
+msgid "Categories"
+msgstr
+
+msgctxt "#30010"
+msgid "Recent Photos"
+msgstr
+
+msgctxt "#30011"
+msgid "Recent Galleries"
+msgstr
+
+msgctxt "#30012"
+msgid "Recent Collections"
+msgstr
+
+msgctxt "#30013"
+msgid "Popular Photos"
+msgstr
+
+msgctxt "#30014"
+msgid "Popular Galleries"
+msgstr
+
+msgctxt "#30015"
+msgid "Popular Collections"
+msgstr
+
+msgctxt "#30016"
+msgid "Couldn't connect to Zenfolio!"
+msgstr
+
+msgctxt "#30017"
+msgid "Shouldn't have got here - a mode was passed, without a matching action!"
+msgstr
+
+msgctxt "#30017"
+msgid "Shouldn't have got here - a mode was passed, without a matching action!"
+msgstr
+
+<!-- Settings labels -->
+
+msgctxt "#30100"
+msgid "Zenfolio Account Login (if you want to browse your own account)"
+msgstr
+
+msgctxt "#30101"
+msgid "Username"
+msgstr
+
+msgctxt "#30102"
+msgid "Password"
+msgstr
+
+msgctxt "#30103"
+msgid "If you have password protected your originals at ZenFolio, enter your"
+msgstr
+
+msgctxt "#30104"
+msgid "password below (only supports one global password at this stage)"
+msgstr
+
+msgctxt "#30105"
+msgid "Password for user gallery access"
+msgstr
+
+msgctxt "#30106"
+msgid "If you have issues getting user authentication to work, try enabling this:"
+msgstr
+
+msgctxt "#30107"
+msgid "TLS Work Around"
+msgstr
+
+

@@ -1,25 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="plugin.image.xzen"
-  version="0.1.1"
+  version="0.2"
   name="XZen"
   provider-name="bossanova808">
-  <requires>
-    <import addon="xbmc.python" version="2.24.0"/>
-  </requires>
-  <extension point="xbmc.python.pluginsource" library="default.py">
-    <provides>image</provides>
-  </extension>
- <extension point="xbmc.addon.metadata">
-    <summary lang="en">Zenfolio Browser for Kodir</summary>
-    <description lang="en">Browse the public Zenfolio galleries, and view your Zenfolio photo portfolios in Kodi</description>
-    <disclaimer lang="en"></disclaimer>
-    <platform>all</platform>
-    <language></language>
-    <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-    <forum>http://forum.kodi.org/showthread.php?tid=153178</forum>
-    <website>http://wiki.kodi.org/index.php?title=Add-on:XZen</website>
-    <email></email>
-    <source>https://github.com/bossanova808/plugin.image.xzen</source>
-  </extension>
+    <requires>
+        <import addon="xbmc.python" version="3.0.0"/>
+    </requires>
+    <!-- ...or can be run as a screensaver too -->
+    <extension point="xbmc.ui.screensaver" library="default.py" ></extension>
+    <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>image</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en">Zenfolio Browser for Kodi</summary>
+        <description lang="en">Browse the public Zenfolio galleries, and view your Zenfolio photo portfolios in Kodi</description>
+        <disclaimer lang="en"></disclaimer>
+        <platform>all</platform>
+        <language></language>
+        <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+        <forum>https://forum.kodi.tv/showthread.php?tid=153178</forum>
+        <website>https://kodi.wiki/view/Add-on:XZen</website>
+        <email></email>
+        <source>https://github.com/bossanova808/plugin.image.xzen</source>
+        <assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
+        </assets>
+    </extension>
 </addon>

@@ -1,4 +1,6 @@
-XBMC plugin for Zenfolio, available from master XBMC repository.
+XZen
+===================================
+Kodi plugin for Zenfolio, available from the master Kodi repository.
 
 Supports popular, recent etc., as well as user galleries.
 
