@@ -6,6 +6,8 @@
   provider-name="bossanova808">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
+        <import addon="script.module.requests" version="2.22.0+matrix.1"/>
+        <import addon="script.module.httplib2" version="0.17.0+matrix.2"/>
     </requires>
     <!-- ...or can be run as a screensaver too -->
     <extension point="xbmc.ui.screensaver" library="default.py" ></extension>

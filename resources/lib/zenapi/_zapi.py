@@ -25,12 +25,12 @@ import logging
 import json
 import struct
 import urllib
-import urllib2
+import urllib3
 import os
 import sys
 import re
 import random
-import httplib
+import http.client
 import operator
 from datetime import datetime
 import time
@@ -47,8 +47,9 @@ if USE_TLS=="true":
 else:
     USE_TLS=False
 
+
 # Need to override default openers for SSL incompatability issue
-class TLSConnection(httplib.HTTPSConnection):
+class TLSConnection(http.client.HTTPSConnection):
     "This class allows communication via TLS."
 
     def connect(self):
@@ -63,7 +64,7 @@ class TLSConnection(httplib.HTTPSConnection):
                                     ssl_version=ssl.PROTOCOL_TLSv1, # Zenfolio fails on SSL
                                     )
 
-class TLSHandler(urllib2.HTTPSHandler):
+class TLSHandler(urllib3.HTTPSHandler):
     def https_open(self, req):
         return self.do_open(TLSConnection, req)
 
@@ -77,9 +78,9 @@ def build_opener(use_tls=USE_TLS):
     """
     global _opener
     if USE_TLS:
-        _opener = urllib2.build_opener(TLSHandler)
+        _opener = urllib3.build_opener(TLSHandler)
     else:
-        _opener = urllib2.build_opener()
+        _opener = urllib3.build_opener()
 build_opener()
 
 class Error(Exception):
@@ -131,10 +132,10 @@ def MakeRequest(method, params, auth=None, use_ssl=True, keyring = None):
     headers['Content-Length'] = len(data)
 
     try:
-        req = urllib2.Request(url, data=data, headers=headers)
-        #return urllib2.urlopen(req)
+        req = urllib3.Request(url, data=data, headers=headers)
+        #return urllib3.urlopen(req)
         return _opener.open(req)
-    except urllib2.HTTPError, e:
+    except urllib3.HTTPError as e:
         raise HttpError(code=e.code, headers=e.headers, url=e.url, body=e.read())
 
 class RpcError(Error):
@@ -348,7 +349,7 @@ def Call(method, auth=None, use_ssl=False, params=None, keyring = None):
 
     try:
         resp = MakeRequest(method, params, auth, use_ssl, keyring)
-    except HttpError, e:
+    except HttpError as e:
         log('ZenFolio API Call for %s failed with params: %s\n'
                         'response code %d with body:\n %s', method, params,
                         e.code, e.body)
@@ -602,8 +603,8 @@ class Photo(Snapshot):
             else:
                 os.remove(fp)
 
-        data = urllib2.urlopen(
-            urllib2.Request(
+        data = urllib3.urlopen(
+            urllib3.Request(
                 self.getUrl(size=size), headers=MakeHeaders(auth=auth,keyring=keyring))).read()
 
         with open(fp, 'wb') as f:
@@ -685,7 +686,7 @@ class ZenConnection(object):
             resp = self.call('Authenticate',
                              use_ssl=True,
                              params=PackParams(auth_challenge['Challenge'], byte_proof))
-        except RpcError, e:
+        except RpcError as e:
             log(
                 'Authentication failed code: %s and message: %s', e.code, e.message)
 
@@ -1116,8 +1117,8 @@ class ZenConnection(object):
             zfilename = file_name
 
         url = upload_url + '?' + urllib.urlencode ([("filename", zfilename)])#, ("modified", modified)])
-        req = urllib2.Request(upload_url, data=data, headers=headers)
-        opener = urllib2.build_opener(urllib2.HTTPHandler(debuglevel=0))
+        req = urllib3.Request(upload_url, data=data, headers=headers)
+        opener = urllib3.build_opener(urllib3.HTTPHandler(debuglevel=0))
 
         try:
             result = json.loads(opener.open(req).read())
@@ -1132,8 +1133,8 @@ class ZenConnection(object):
             #LOG.debug ("RESPONSE: --\n%s\n--\n" % data)
             #result = json.loads(data)
             # TBD : check for erorr by checking the status of the HTTP message
-        except Exception, e:
-            print e
+        except Exception as e:
+            print(e)
             raise RuntimeError
 
         return result

@@ -30,17 +30,16 @@ import xbmcplugin
 ADDON = xbmcaddon.Addon()
 CWD = ADDON.getAddonInfo('path')
 RESOURCES_PATH = xbmc.translatePath(os.path.join(CWD, 'resources'))
-LIB_PATH = xbmc.translatePath(os.path.join(RESOURCES_PATH, "lib"))
-CLASS_PATH = LIB_PATH = xbmc.translatePath(os.path.join(LIB_PATH, "classes"))
 
-sys.path.append(LIB_PATH)
-
-from b808common import *
-from XZenScreensaver import *
+from resources.lib.b808common import *
+from resources.lib.XZenConstants import *
+from resources.lib.classes.XZenBridge import *
+from resources.lib.classes.XZenPlugin import *
+from resources.lib.classes.XZenScreensaver import *
 
 # uses zenapi by Scott Gorling (http://www.scottgorlin.com)
-from zenapi import ZenConnection
-from zenapi.snapshots import Photo, Group, PhotoSet
+from resources.lib.zenapi import ZenConnection
+from resources.lib.zenapi.snapshots import Photo, Group, PhotoSet
 
 # kick this off
 footprints()
